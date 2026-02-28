@@ -1,26 +1,129 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --font-fraunces: "Fraunces", Georgia, serif;
+    --font-dm-sans: "DM Sans", system-ui, sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #faf3e0;
+    color: #2a2520;
+    font-family: var(--font-dm-sans);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  ::selection {
+    background: #d4855a;
+    color: #faf3e0;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f5e6c0;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #c8b07a;
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #a8895a;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .btn-primary {
+    @apply bg-terra-400 hover:bg-terra-500 text-cream-50 font-medium rounded-xl px-6 py-3 transition-all duration-200 hover:shadow-terra active:scale-95;
+  }
+
+  .btn-secondary {
+    @apply bg-sand-100 hover:bg-sand-200 text-charcoal-500 font-medium rounded-xl px-6 py-3 transition-all duration-200 active:scale-95;
+  }
+
+  .btn-ghost {
+    @apply hover:bg-sand-100 text-charcoal-400 font-medium rounded-xl px-4 py-2 transition-all duration-200;
+  }
+
+  .card {
+    @apply bg-white rounded-2xl shadow-warm border border-sand-100 overflow-hidden;
+  }
+
+  .card-hover {
+    @apply card hover:shadow-warm-lg hover:-translate-y-0.5 transition-all duration-200;
+  }
+
+  .product-card {
+    @apply bg-cream-50 rounded-2xl border-2 border-sand-100 overflow-hidden cursor-pointer transition-all duration-200;
+  }
+
+  .product-card:hover {
+    @apply border-terra-300 shadow-warm -translate-y-1;
+  }
+
+  .product-card.selected {
+    @apply border-terra-400 bg-terra-100 shadow-terra;
+  }
+
+  .glass {
+    @apply bg-white/80 backdrop-blur-sm;
+  }
+
+  .step-dot {
+    @apply w-8 h-8 rounded-full border-2 flex items-center justify-center text-sm font-semibold transition-all duration-300;
+  }
+
+  .step-dot.active {
+    @apply bg-terra-400 border-terra-400 text-white;
+  }
+
+  .step-dot.completed {
+    @apply bg-forest-400 border-forest-400 text-white;
+  }
+
+  .step-dot.upcoming {
+    @apply bg-sand-100 border-sand-200 text-charcoal-300;
+  }
+}
+
+@layer utilities {
+  .text-display {
+    font-family: var(--font-fraunces);
+  }
+
+  .noise-overlay::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .isometric-container {
+    transform-style: preserve-3d;
+    perspective: 800px;
+  }
+
+  /* Isometric grid lines */
+  .iso-grid {
+    background-image:
+      linear-gradient(rgba(168, 137, 90, 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(168, 137, 90, 0.08) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
 }
